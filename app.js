@@ -1,9 +1,17 @@
 // Get Express module
 const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+
+// for parsin multypart/form-data
+const upload = multer();
 const app = express();
 
-// Get path module from Nodejs module
-const path = require('path');
+// for parsing application/json
+app.use(bodyParser.json());
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended :true }));
 
 // Set static path
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,6 +47,13 @@ app.get('/download', (req, res) => {
 // redirect to page
 app.get('/about', (req, res) => {
     res.redirect('/about.html');
+});
+
+// submit data into database
+app.post('/subscribe', upload.array(), (req, res) => {
+   let name  = req.body.name;
+   let email = req.body.email;
+   console.log(name, email);
 });
 
 app.listen(500, () => console.log('Server started on  port 500...'));
