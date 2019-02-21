@@ -36,4 +36,9 @@ app.get('/download', (req, res) => {
    res.download(path.join(__dirname, '/download/pdf.pdf'));
 });
 
+// redirect to page
+app.get('/about', (req, res) => {
+    res.redirect('/about.html');
+});
+
 app.listen(500, () => console.log('Server started on  port 500...'));
